@@ -79,6 +79,7 @@ public class SongSelectorActivity extends ListActivity
         return true;
     }
 
+    // Handles the controls
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -106,6 +107,7 @@ public class SongSelectorActivity extends ListActivity
         return super.onOptionsItemSelected(item);
     }
 
+    // Selects and marks user selected songs
     private void markSelection(int itemPosition)
     {
         getListView().setItemChecked(itemPosition,true);
@@ -121,6 +123,7 @@ public class SongSelectorActivity extends ListActivity
         super.onPause();
     }
 
+    // Remember the pause state
     @Override
     protected void onSaveInstanceState(Bundle outState)
     {
@@ -128,6 +131,7 @@ public class SongSelectorActivity extends ListActivity
         outState.putBoolean(EXTRA_PAUSE_VISIBILITY,isPauseButtonVisible);
     }
 
+    // Unbinds the service on stop
     @Override
     protected void onStop()
     {
@@ -146,6 +150,7 @@ public class SongSelectorActivity extends ListActivity
     }
 
 
+    // plays selected track
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id)
     {
@@ -153,6 +158,7 @@ public class SongSelectorActivity extends ListActivity
         togglePauseButton();
     }
 
+    // makes sure pause button is displayed or not
     private void togglePauseButton()
     {
         if (playerService.isMusicPlaying())
