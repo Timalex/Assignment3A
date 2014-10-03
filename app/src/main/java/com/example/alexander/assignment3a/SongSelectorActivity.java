@@ -11,12 +11,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.SeekBar;
+import android.widget.MediaController;
 
 import java.util.ArrayList;
 
 
-public class SongSelectorActivity extends ListActivity
+public class SongSelectorActivity extends ListActivity implements MediaController.MediaPlayerControl
 {
 
     Intent serviceIntent;
@@ -51,6 +51,7 @@ public class SongSelectorActivity extends ListActivity
     private MenuItem pauseButton;
     private TrackAdapter trackAdapter;
     private ArrayList<Track> playlist;
+    private MediaController mediaController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +66,11 @@ public class SongSelectorActivity extends ListActivity
         playlist = playlistHelper.getTrackPlaylist();
         trackAdapter = new TrackAdapter(this, playlist);
         setListAdapter(trackAdapter);
+
+//        mediaController = new MediaController(this,false);
+//        mediaController.setMediaPlayer();
+//        mediaController.setEnabled(true);
+//        mediaController.show();
     }
 
 
@@ -87,38 +93,25 @@ public class SongSelectorActivity extends ListActivity
         switch (item.getItemId())
         {
             case R.id.action_play:
-                markSelection(playerService.play());
+                playerService.play();
                 togglePauseButton();
                 return true;
             case R.id.action_pause:
                 playerService.pause();
                 togglePauseButton();
                 return true;
-            case R.id.action_next:
-                markSelection(playerService.nextTrack());
-                togglePauseButton();
-                return true;
-            case R.id.action_previous:
-                markSelection(playerService.previousTrack());
-                togglePauseButton();
-                return true;
         }
         return super.onOptionsItemSelected(item);
     }
-
-    private void markSelection(int itemPosition)
-    {
-        getListView().setItemChecked(itemPosition,true);
-        setSelection(itemPosition);
-    }
-
-
-
 
     @Override
     protected void onPause()
     {
         super.onPause();
+
+        Log.d("Paused", "Activity paused");
+//        playerIntentService.setAction(PlayerIntentService.ACTION_TO_FOREGROUND);
+//        startService(playerIntentService);
     }
 
     @Override
@@ -143,6 +136,9 @@ public class SongSelectorActivity extends ListActivity
     protected void onResume()
     {
         super.onResume();
+//        playerIntentService.setAction(PlayerIntentService.ACTION_TO_BACKGROUND);
+//        startService(playerIntentService);
+
     }
 
 
@@ -168,5 +164,4 @@ public class SongSelectorActivity extends ListActivity
             isPauseButtonVisible = false;
         }
     }
-
 }
