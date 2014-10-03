@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class PlayerService extends Service {
 
     private static boolean playerUsedBefore = false;
+    private int currentTrackId = 0;
     public MediaPlayer musicPlayer;
     private final IBinder binder = new PlayerBinder();
 
@@ -86,20 +87,20 @@ public class PlayerService extends Service {
             musicPlayer.prepare();
             musicPlayer.start();
             playerUsedBefore = true;
+            currentTrackId = playlist.indexOf(track);
             musicPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener()
             {
                 @Override
                 public void onCompletion(MediaPlayer mp)
                 {
 
-                    int indexPlayedTrack = playlist.indexOf(track);
-                    if (indexPlayedTrack < playlist.size() - 1)
+                    if (currentTrackId < playlist.size() - 1)
                     {
-                        playTrack(playlist.get(++indexPlayedTrack));
+                        playTrack(playlist.get(++currentTrackId));
                     }
                     else
                     {
-                        playTrack(playlist.get(0));
+                        playFirstTrack();
                     }
                 }
             });
@@ -112,22 +113,68 @@ public class PlayerService extends Service {
 
     }
 
-    public void play()
+    public int play()
     {
-        if (playerUsedBefore) { musicPlayer.start(); }
+        if (playerUsedBefore)
+        {
+            musicPlayer.start();
+            return currentTrackId;
+        }
         else
         {
-            playTrack(playlist.get(0));
+            return playFirstTrack();
         }
     }
+
     public void pause()
     {
         musicPlayer.pause();
     }
 
+    public int nextTrack()
+    {
+        int nextTrackId = currentTrackId + 1;
+        if (nextTrackId < playlist.size())
+        {
+            playTrack(playlist.get(nextTrackId));
+            return nextTrackId;
+        }
+        else
+        {
+            return playFirstTrack();
+        }
+    }
+
+    public int previousTrack()
+    {
+        int previousTrackId = currentTrackId - 1;
+        if (previousTrackId >= 0)
+        {
+            playTrack(playlist.get(previousTrackId));
+            return previousTrackId;
+        }
+        else
+        {
+            return playFirstTrack();
+        }
+    }
+
+
+
+
+    private int playFirstTrack()
+    {
+        playTrack(playlist.get(0));
+        return 0;
+    }
 
     public boolean isMusicPlaying()
     {
         return musicPlayer.isPlaying();
+    }
+
+    public void jumpInsideTrack(int pos)
+    {
+        musicPlayer.seekTo(pos);
     }
 }
