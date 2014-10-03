@@ -62,6 +62,7 @@ public class TrackAdapter extends ArrayAdapter<Track>
         return convertView;
     }
 
+    // This retrives the cover image from inside the mp3 file decodes it and uses it in the imageview
     private void setCover(ImageView imageHolder, String dataPath)
     {
         metadataRetriever.setDataSource(dataPath);
