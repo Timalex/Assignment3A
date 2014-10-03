@@ -71,6 +71,10 @@ public class TrackAdapter extends ArrayAdapter<Track>
             Bitmap coverImage = BitmapFactory.decodeByteArray(coverData, 0, coverData.length);
             imageHolder.setImageBitmap(coverImage);
         }
+        else
+        {
+            imageHolder.setImageResource(R.drawable.ic_action_picture);
+        }
     }
 
     private static class ViewHolder
