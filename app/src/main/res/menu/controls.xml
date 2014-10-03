@@ -1,0 +1,25 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".PlayerActivity" >
+    <item android:id="@+id/action_previous"
+        android:title="@string/action_previous"
+        android:icon="@drawable/ic_action_previous"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom" />
+    <item android:id="@+id/action_play"
+          android:title="@string/action_play"
+          android:icon="@drawable/ic_action_play"
+          android:orderInCategory="100"
+          android:showAsAction="ifRoom" />
+    <item android:id="@+id/action_pause"
+          android:title="@string/action_pause"
+          android:icon="@drawable/ic_action_pause"
+          android:orderInCategory="100"
+          android:visible="false"
+          android:showAsAction="ifRoom" />
+    <item android:id="@+id/action_next"
+          android:title="@string/action_next"
+          android:icon="@drawable/ic_action_next"
+          android:orderInCategory="100"
+          android:showAsAction="ifRoom" />
+</menu>

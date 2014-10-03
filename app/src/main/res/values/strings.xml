@@ -4,5 +4,10 @@
     <string name="app_name">Assignment 3A</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="action_play">Spela upp</string>
+    <string name="action_previous">Förra</string>
+    <string name="action_pause">Frys uppspelning</string>
+    <string name="action_next">Nästa</string>
+    <string name="notification_content_text">Klicka för att återvända till musikspelaren</string>
 
 </resources>
